@@ -1,10 +1,34 @@
 import React, { Component } from 'react';
 import gif from '../assets/img/images/38431.gif';
+import { Modal } from 'react-bootstrap';
 
 export class Mission extends Component {
     constructor(props){
         super(props);
-        this.handleMint = this.handleMint.bind(this);
+        this.state = {
+            error: '',
+            modal:false
+        }
+    }
+
+    isMetaMaskConnected(){
+        const ethereum = window.ethereum;
+        if(ethereum){
+            ethereum.request({method: 'eth_accounts'})
+            .then(accounts => {
+                if(accounts.length === 0){
+                    this.setState({error:'Please connect your wallet!', modal:true})
+                }else{
+                    this.handleMint();
+                }
+                console.log(accounts.length);
+            })
+            .catch(error => {
+              console.error(error);
+            })
+        }else{
+            this.setState({error: 'Please install metamask extension first!', modal:true})
+        }
     }
 
     handleMint(){
@@ -52,7 +76,7 @@ export class Mission extends Component {
                         <h3 className="c_rate font-weight-bold mb-4">1ETH = 5333333$KATA</h3>
                         <div className='d-flex col-md-6 m-auto'>
                             <div className='col'>
-                                <button className='btn' onClick={this.handleMint}>Mint</button>
+                                <button className='btn' onClick={() => this.isMetaMaskConnected() }>Mint</button>
                             </div>
                             <div className='col'>
                                 <a className='btn' href='https://testnets.opensea.io/' target="_blank" rel="noreferrer">Open Sea</a>
@@ -63,6 +87,16 @@ export class Mission extends Component {
                     </div>
                 </div>
                 </div>
+                <Modal 
+                    show={this.state.modal} 
+                    onHide={() => this.setState({modal:false})} 
+                    animation={false} 
+                    centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title className='text-dark'>Metamask Error</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className='text-danger'>{this.state.error}</Modal.Body>
+                </Modal>
             </section>
         )
     }

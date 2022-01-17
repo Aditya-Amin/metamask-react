@@ -18,12 +18,15 @@ export class ConnectWalletButton extends Component {
             this.isMetaMaskConnected();
         }
 
-
-        window.ethereum.on("accountsChanged", () => {
-            if(localStorage.getItem("isMetaMaskConnected") === 'true'){
-                this.handleDisconnectWallet();
-            }
-        })
+        const ethereum = window.ethereum;
+        if(ethereum){
+            ethereum.on("accountsChanged", () => {
+                if(localStorage.getItem("isMetaMaskConnected") === 'true'){
+                    this.handleDisconnectWallet();
+                }
+            })
+        }
+       
     }
 
     handleConnectWallet(){
@@ -82,9 +85,9 @@ export class ConnectWalletButton extends Component {
                     animation={false} 
                     centered>
                     <Modal.Header closeButton>
-                        <Modal.Title>Metamask Error</Modal.Title>
+                        <Modal.Title className='text-dark'>Metamask Error</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>{this.state.error}</Modal.Body>
+                    <Modal.Body className='text-danger'>{this.state.error}</Modal.Body>
                 </Modal>
             </div>
         )
