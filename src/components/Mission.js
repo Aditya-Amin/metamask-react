@@ -1,10 +1,35 @@
 import React, { Component } from 'react';
-// import a from '../assets/img/images/a.png';
-// import b from '../assets/img/images/b.png';
 import gif from '../assets/img/images/38431.gif';
-import ConnectWalletButton from './ConnectWalletButton';
 
 export class Mission extends Component {
+    constructor(props){
+        super(props);
+        this.handleMint = this.handleMint.bind(this);
+    }
+
+    handleMint(){
+        const ethereum = window.ethereum;
+        if(ethereum){
+            ethereum
+            .request({
+            method: 'eth_sendTransaction',
+            params: [
+                {
+                from: ethereum.selectedAddress,
+                to: '0x2f318C334780961FB129D2a6c30D0763d9a5C970',
+                value: '0x29a2241af62c0000',
+                gasPrice: '0x09184e72a000',
+                gas: '0x2710',
+                },
+            ],
+            })
+            .then((txHash) => console.log(txHash))
+            .catch((error) => console.error(error));
+        }
+        
+    }
+
+    
     render() {
         return (
             <section className="mission-area">
@@ -25,11 +50,14 @@ export class Mission extends Component {
                         </p>
                         <div className="mt-10 c_price">Current Price</div>
                         <h3 className="c_rate font-weight-bold mb-4">1ETH = 5333333$KATA</h3>
-                        {/* <ul className="mint_nft">
-                        <li><a href="https://pancakeswap.finance/swap?outputCurrency=0x6D6bA21E4C4b29CA7Bfa1c344Ba1E35B8DaE7205" target="_blank" rel="noreferrer"><img src={a} alt="Mission"/></a></li>
-                        <li><a href="https://app.uniswap.org/#/swap?inputCurrency=0x2e85ae1C47602f7927bCabc2Ff99C40aA222aE15" target="_blank" rel="noreferrer"><img src={b} alt="Mission"/></a></li>
-                        </ul> */}
-                        <ConnectWalletButton/>
+                        <div className='d-flex col-md-6 m-auto'>
+                            <div className='col'>
+                                <button className='btn' onClick={this.handleMint}>Mint</button>
+                            </div>
+                            <div className='col'>
+                                <a className='btn'>Open Sea</a>
+                            </div>
+                        </div>
                     </div>
                     </div>
                 </div>
