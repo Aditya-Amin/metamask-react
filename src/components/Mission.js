@@ -55,9 +55,10 @@ export class Mission extends Component {
                                 <button className='btn' onClick={this.handleMint}>Mint</button>
                             </div>
                             <div className='col'>
-                                <a className='btn'>Open Sea</a>
+                                <a className='btn' href='https://testnets.opensea.io/' target="_blank" rel="noreferrer">Open Sea</a>
                             </div>
                         </div>
+
                     </div>
                     </div>
                 </div>
