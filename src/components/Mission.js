@@ -16,7 +16,7 @@ export class Mission extends Component {
         if(ethereum){
             ethereum.request({method: 'eth_accounts'})
             .then(accounts => {
-                if(accounts.length === 0){
+                if(accounts.length === 0 && localStorage.getItem('isMetaMaskConnected') == null){
                     this.setState({error:'Please connect your wallet!', modal:true})
                 }else{
                     this.handleMint();
@@ -27,7 +27,7 @@ export class Mission extends Component {
               console.error(error);
             })
         }else{
-            this.setState({error: 'Please install metamask extension first!', modal:true})
+            this.setState({error: 'Please connect your wallet!', modal:true})
         }
     }
 
@@ -40,7 +40,7 @@ export class Mission extends Component {
             params: [
                 {
                 from: ethereum.selectedAddress,
-                to: '0x2f318C334780961FB129D2a6c30D0763d9a5C970',
+                to: '0x95FD6421C4F7199FFb873557DCd1FDe1E023BE6a',
                 value: '0x29a2241af62c0000',
                 gasPrice: '0x09184e72a000',
                 gas: '0x2710',
@@ -65,15 +65,14 @@ export class Mission extends Component {
                     </div>
                     </div>
                     <div className="col-lg-6">
-                    <div className="section-title mb-45 mb-20 mint_title">
-                        <h2 className="title"><span>Katana Inu</span> NFT-Gaming</h2>
+                    <div className="section-title mb-45 mb-20 text-center">
+                        <h2 className="title">Welcome To <span>Venice</span></h2>
                     </div>
                     <div className="mission-content text-center">
-                        <p>YOU CAN PURCHASE NOW ON PANCAKE SWAP AND UNISWAP<br />
-                        We will lead this huge project to create massive value in the cryptocurrency space.
+                        <p>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.
                         </p>
                         <div className="mt-10 c_price">Current Price</div>
-                        <h3 className="c_rate font-weight-bold mb-4">1ETH = 5333333$KATA</h3>
+                        <h3 className="c_rate font-weight-bold mb-5 pb-3">1ETH = 5333333 $VEN</h3>
                         <div className='d-flex col-md-6 m-auto'>
                             <div className='col'>
                                 <button className='btn' onClick={() => this.isMetaMaskConnected() }>Mint</button>
@@ -93,9 +92,9 @@ export class Mission extends Component {
                     animation={false} 
                     centered>
                     <Modal.Header closeButton>
-                        <Modal.Title className='text-dark'>Metamask Error</Modal.Title>
+                        <Modal.Title className='text-dark'>Connect Wallet</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body className='text-danger'>{this.state.error}</Modal.Body>
+                    <Modal.Body className='text-danger' style={{padding:'26px 17px'}}>{this.state.error}</Modal.Body>
                 </Modal>
             </section>
         )

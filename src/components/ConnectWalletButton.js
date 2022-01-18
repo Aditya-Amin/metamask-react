@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
+import './ConnectWalletButton.css';
 
 export class ConnectWalletButton extends Component {
     constructor(props){
@@ -85,9 +86,9 @@ export class ConnectWalletButton extends Component {
                     animation={false} 
                     centered>
                     <Modal.Header closeButton>
-                        <Modal.Title className='text-dark'>Metamask Error</Modal.Title>
+                        <Modal.Title className='text-dark'>Metamask missing</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body className='text-danger'>{this.state.error}</Modal.Body>
+                    <Modal.Body className='text-danger' style={{padding:'26px 17px'}}>{this.state.error}</Modal.Body>
                 </Modal>
             </div>
         )

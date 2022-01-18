@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header';
-import Countdown from './components/Countdown';
 import Mission from './components/Mission';
 
 export default class App extends React.Component {
@@ -9,7 +8,6 @@ export default class App extends React.Component {
     return (
       <div id="main">
         <Header/>
-        <Countdown/>
         <Mission/>
       </div>
     )
